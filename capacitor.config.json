@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "eldoraproduction",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

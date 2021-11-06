@@ -1,0 +1,7 @@
+{
+  "name": "eldoraproduction",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
