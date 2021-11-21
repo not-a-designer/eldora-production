@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide color="warning"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="warning">Roasts</ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+        shape="round" 
+        fill="clear" 
+        color="warning"
+        (click)="presentNewRoastModal()">
+        <ion-icon [attr.slot]="platform.is('ios') ? 'start' : 'icon-only'" name="add"></ion-icon>
+        <ion-label *ngIf="platform.is('ios')">New</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar color="primary">
+      <ion-title size="large" color="warning">Roasts</ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- <ion-list>
+    <ion-item *ngFor="let bean of beanList; let i = index">
+      {{ bean | json }} {{ i }}
+    </ion-item>
+  </ion-list> -->
+</ion-content>

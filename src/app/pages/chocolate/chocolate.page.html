@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide color="warning"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="warning">Chocolate</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="segment-toolbar">
+    <ion-segment [(ngModel)]="currentView">
+      <ion-segment-button value="batches">
+        <ion-label>Batches</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="conchers">
+        <ion-label>Conchers</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngSwitch]="currentView" [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="primary">
+      <ion-title size="large" color="warning">Chocolate</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list *ngSwitchCase="'batches'">
+    <ion-item *ngFor="let item of chocolateBatches; let i = index">
+      Item {{ i }}
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'conchers'">
+    <ion-row>
+      <ion-col size="12" size-sm="6" *ngFor="let concher of conchers; let j = index">
+        <ion-card 
+          [ngStyle]="{ 'border': !concher.active ? '10px solid var(--ion-color-danger)' : '4px solid var(--ion-color-success)' }"
+          button
+          (click)="concher.active ? presentChocolateDetails() : presentChocolateTypeActionsheet(concher.position)">
+          <ion-card-content>
+            
+          </ion-card-content>
+          <ion-card-header class="ion-no-padding">
+            <ion-card-subtitle class="ion-margin">
+              <ion-text color="concher.active ? 'success' : 'danger'">
+                {{ concher.position }} ({{concher.active ? 'active' : 'offline' }})
+              </ion-text>
+            </ion-card-subtitle>
+            <ion-card-title *ngIf="concher.active">{{ concher.batchContents }}</ion-card-title>
+            <ion-card-title *ngIf="!concher.active">
+              <ion-button *ngIf="!concher.active" class="ion-float-right" color="primary">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>New Batch</ion-label>
+              </ion-button>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+  
+</ion-content>

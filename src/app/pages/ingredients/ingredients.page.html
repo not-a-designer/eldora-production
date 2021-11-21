@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="warning" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="warning">Ingredients</ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+        color="warning"
+        shape="round" 
+        size="small" 
+        (click)="presentAddAlert()">
+        <ion-icon [attr.slot]="platform.is('ios') ? 'start' : 'icon-only'" name="add"></ion-icon>
+        <ion-label *ngIf="platform.is('ios')">Ingredient</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-header collapse="condense">
+    <ion-toolbar color="primary">
+      <ion-title size="large" color="warning">Ingredients</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let ingredient of ingredientsList; let i = index" lines="full">
+          {{ ingredient.product }} - {{ ingredient.brand }}
+          <ion-button slot="end" color="tertiary" (click)="presentUpdateAlert(ingredient)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button class="ion-hide" color="danger" slot="end" (click) ="presentDeleteAlert(ingredient)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

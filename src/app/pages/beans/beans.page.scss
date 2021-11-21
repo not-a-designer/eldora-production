@@ -1,0 +1,8 @@
+ion-header {
+    background: var(--ion-color-primary);
+}
+
+ion-item::part(detail-icon) {
+    margin-left: 16px !important;
+    color: var(--ion-color-warning);
+}

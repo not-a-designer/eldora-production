@@ -1,0 +1,42 @@
+ion-header {
+    background: var(--ion-color-primary);
+}
+
+
+.wrapper-item::part(native) {
+    padding-inline-start: 0;
+}
+
+ion-button.save-button {
+    color: var(--ion-color-warning-tint);
+}
+
+ion-item.selected-accordion {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-warning);
+}
+
+ion-item[slot=header] {
+    --background: var(--ion-color-dark);
+    --color: var(--ion-color-warning);
+    --border-color: var(--ion-color-warning);
+}
+
+ion-card-title {
+    color: var(--ion-color-warning) !important;
+}
+
+ion-row ion-card ion-item {
+    --background: var(--ion-color-primary);
+    --border-color: var(--ion-color-warning);
+    p {
+        color: var(--ion-color-medium);
+    }
+    h2 {
+        color: var(--ion-color-warning);
+    }
+}
+
+ion-select::part(icon) {
+    color: var(--ion-color-primary);
+}

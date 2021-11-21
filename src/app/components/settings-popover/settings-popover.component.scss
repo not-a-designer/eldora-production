@@ -1,0 +1,12 @@
+ion-item[lines=full]::part(native) {
+    border-color: var(--ion-color-warning) !important;
+}
+
+ion-list {
+    background: var(--ion-color-primary);
+    border: none;
+}
+
+:host .popover-content {
+    border: 0.5px solid var(--ion-color-warning) !important;
+}

@@ -1,0 +1,39 @@
+ion-header {
+    background: var(--ion-color-primary);
+}
+ion-col {
+    min-width: 220px;
+    & ion-card {
+        width: 100% !important;
+    }
+}
+
+ion-content ion-toolbar {
+    padding-top: 4px;
+    padding-left: 16px;
+}
+
+ion-card {
+    min-height: 226.2px;
+}
+
+ion-card ion-item {
+    --background: var(--ion-color-primary);
+    --border-color: var(--ion-color-warning);
+    p {
+        color: var(--ion-color-medium) !important;
+    }
+    h2 {
+        color: var(--ion-color-warning);
+    }
+}
+
+ion-card-title {
+    color: var(--ion-color-warning) !important;
+}
+
+@media screen and (max-width: 480px) {
+    ion-col {
+        min-width: 100%;
+    }
+}

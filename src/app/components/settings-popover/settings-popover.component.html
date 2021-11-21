@@ -1,0 +1,28 @@
+<ion-list lines="none" class="ion-no-padding">
+  <ion-item-divider color="warning">
+    <ion-label color="primary">Roaster Controls</ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" color="primary">
+    <ion-label color="warning">Airflow</ion-label>
+    <ion-input color="warning" class="ion-text-end" slot="end" type="text" [(ngModel)]="airflow"></ion-input>
+  </ion-item>
+  <ion-item lines="none" color="primary">
+    <ion-label color="warning">Drum speed</ion-label>
+    <ion-input color="warning" class="ion-text-end" slot="end" type="text" [(ngModel)]="drumSpeed"></ion-input>
+  </ion-item>
+  <ion-item lines="full" color="primary">
+    <ion-label color="warning">Gas</ion-label>
+    <ion-input color="warning" class="ion-text-end" slot="end" type="text" [(ngModel)]="gas"></ion-input>
+  </ion-item>
+  <ion-item-divider color="warning">
+    <ion-label color="primary">Winnower Settings</ion-label>
+  </ion-item-divider>
+  <ion-item lines="none" color="primary">
+    <ion-label color="warning" class="ion-text-nowrap">Auto cracker</ion-label>
+    <ion-toggle color="warning" slot="end" [(ngModel)]="autoCracker"></ion-toggle>
+  </ion-item>
+  <ion-item lines="none" color="primary">
+    <ion-label color="warning" class="ion-text-nowrap">Vertical winnower</ion-label>
+    <ion-toggle color="warning" slot="end" [(ngModel)]="verticalWinnower"></ion-toggle>
+  </ion-item>
+</ion-list>

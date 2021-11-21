@@ -1,0 +1,331 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button 
+      fill="clear" 
+      shape="round" 
+      color="warning"
+      (click)="dismiss()">
+      <ion-icon name="close" [attr.slot]="platform.is('ios') ? 'start' : 'icon-only'"></ion-icon>
+      <ion-label *ngIf="platform.is('ios')">Cancel</ion-label>
+    </ion-button>
+    </ion-buttons>
+    <ion-title color="warning">New Roast</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="save-button">
+        <ion-icon [attr.slot]="platform.is('ios') ? 'start' : 'icon-only'" name="save"></ion-icon>
+        <ion-label *ngIf="platform.is('ios')">Save</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header *ngIf="platform.is('ios')" collapse="condense">
+    <ion-toolbar color="primary">
+      <ion-title color="warning" size="large">New Roast</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form #form [formGroup]="newRoastForm">
+    <ion-card color="primary">
+      <ion-card-content>
+        <ion-list>
+          <ion-accordion-group #accordionGroup (ionChange)="logAccordion($event)">
+            <ion-accordion #accordionRoaster value="roaster">
+              <ion-item slot="header">Roaster</ion-item>
+              <ion-list slot="content">
+                <ion-item lines="full" class="ion-padding-start">
+                  <ion-label class="ion-margin-start">
+                    <p>Machine</p>
+                    <h2>Phoenix ORO 4</h2>
+                  </ion-label>
+                  <ion-button
+                    slot="end" 
+                    fill="clear" 
+                    shape="round" 
+                    (click)="presentSettingsPopover($event)">
+                    <ion-icon name="settings" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </ion-list>
+            </ion-accordion>
+
+            <ion-accordion #accordionBeans value="beans">
+              <ion-item slot="header" [ngClass]="{ 'selected-accordion': accordionGroup.value !== accordionBeans.value }">Beans</ion-item>
+              <ion-list slot="content">
+                <ion-item lines="full" class="ion-padding-start">
+                  <ion-label color="medium" position="stacked">
+                    <p>Contry/Region</p>
+                  </ion-label>
+                  <ion-select formControlName="selectedBeanIndex" class="ion-margin-start" [interfaceOptions]="selectOpts">
+                    <ion-select-option *ngFor="let bean of beans; let i = index" [value]="i">
+                      {{ bean.origin.country }} {{ bean.origin.region }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-list>
+            </ion-accordion>
+
+            <ion-accordion #accordionProfile value="profile">
+              <ion-item slot="header" [ngClass]="{ 'selected-accordion': accordionGroup.value !== accordionProfile.value }">Profile</ion-item>
+              <ion-list slot="content">
+                <ion-row>
+                  <ion-col size="12" size-sm="6">
+                    <ion-card color="primary" class="ion-no-padding">
+                      <ion-card-header>
+                        <ion-card-title>Initial</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content class="ion-no-padding">
+                        <ion-list formArrayName="initial" class="ion-no-padding">
+                          <ion-item 
+                            *ngFor="let setting of newRoastForm?.get('initial')?.value; let i = index" 
+                            [formGroupName]="i"
+                            lines="full">
+                            <ion-label>
+                              <p>{{ initialProps[i] }}</p>
+                              <h2>TTT</h2>
+                            </ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ion-card-content>
+                      
+                    </ion-card>
+                  </ion-col>
+          
+                  <ion-col size="12" size-sm="6">
+                    <ion-row class="ion-align-items-stretch">
+                      <ion-col size="12" class="ion-no-padding">
+                        <ion-card color="primary" class="ion-no-padding">
+                          <ion-card-header>
+                            <ion-card-title>Peak</ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content class="ion-no-padding">
+                            <ion-list formArrayName="peak" class="ion-no-padding">
+                              <ion-item 
+                                *ngFor="let setting of newRoastForm?.get('peak')?.value; let i = index" 
+                                [formGroupName]="i"
+                                lines="full">
+                                <ion-label>
+                                  <p>{{ peakProps[i] }}</p>
+                                </ion-label>
+                              </ion-item>
+                            </ion-list>
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+              
+                      <ion-col size="12" class="ion-no-padding">
+                        <ion-card color="primary" class="ion-no-padding">
+                          <ion-card-header>
+                            <ion-card-title>Final</ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content class="ion-no-padding">
+                            <ion-list formArrayName="final" class="ion-no-padding">
+                              <ion-item 
+                                *ngFor="let setting of newRoastForm?.get('final')?.value; let i = index" 
+                                [formGroupName]="i"
+                                lines="full">
+                                <ion-label>
+                                  <p>{{ finalProps[i] }}</p>
+                                </ion-label>
+                              </ion-item>
+                            </ion-list>
+                          </ion-card-content>
+                        </ion-card>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+              </ion-list>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-list class="ion-no-padding">
+      <!-- <ion-card>
+        <ion-card-header>
+          <ion-card-title color="warning">Roaster</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            
+          </ion-list>
+        </ion-card-content>
+      </ion-card>-->
+      <!-- <ion-card> 
+        <ion-card-header>
+          <ion-card-title color="warning">Beans</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Contry/Region</ion-label>
+              <ion-select formControlName="selectedBeanIndex">
+                <ion-select-option *ngFor="let bean of beans; let i = index" [value]="i">
+                  {{ bean.origin.country }} {{ bean.origin.region }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="warning">Profile</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-row>
+              <ion-col size="12" size-sm="6">
+                <ion-card class="ion-no-padding">
+                  <ion-card-header>
+                    <ion-card-title>Initial</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="ion-no-padding">
+                    <ion-list formArrayName="initial" class="ion-no-padding">
+                      <ion-item 
+                        *ngFor="let setting of newRoastForm?.get('initial')?.value; let i = index" 
+                        [formGroupName]="i"
+                        lines="full">
+                        <ion-label>{{ initialProps[i] }}</ion-label>
+                      </ion-item>
+                    </ion-list>
+                  </ion-card-content>
+                  
+                </ion-card>
+              </ion-col>
+      
+              <ion-col size="12" size-sm="6">
+                <ion-row class="ion-align-items-stretch">
+                  <ion-col size="12" class="ion-no-padding">
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>Peak</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content class="ion-no-padding">
+                        <ion-list formArrayName="peak" class="ion-no-padding">
+                          <ion-item 
+                            *ngFor="let setting of newRoastForm?.get('peak')?.value; let i = index" 
+                            [formGroupName]="i"
+                            lines="full">
+                            <ion-label>{{ peakProps[i] }}</ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-col>
+          
+                  <ion-col size="12" class="ion-no-padding">
+                    <ion-card>
+                      <ion-card-header>
+                        <ion-card-title>Final</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content class="ion-no-padding">
+                        <ion-list formArrayName="final" class="ion-no-padding">
+                          <ion-item 
+                            *ngFor="let setting of newRoastForm?.get('final')?.value; let i = index" 
+                            [formGroupName]="i"
+                            lines="full">
+                            <ion-label>{{ finalProps[i] }}</ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-card-content>
+      </ion-card> -->
+      <!-- <ion-list-header class="ion-text-uppercase" color="med">
+        <ion-label>Roaster</ion-label>
+      </ion-list-header>
+      <ion-item lines="full">
+        <ion-label>Phoenix ORO 4</ion-label>
+        <ion-button slot="end" fill="clear" shape="round" (click)="presentSettingsPopover($event)">
+          <ion-icon name="settings" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item> -->
+      
+      <!-- <ion-list-header class="ion-text-uppercase">
+        <ion-label>Beans</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label position="floating">Contry/Region</ion-label>
+        <ion-select formControlName="selectedBeanIndex">
+          <ion-select-option *ngFor="let bean of beans; let i = index" [value]="i">
+            {{ bean.origin.country }} {{ bean.origin.region }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item> -->
+
+      <!-- <ion-list-header class="ion-text-uppercase">
+        <ion-label>Profile</ion-label>
+      </ion-list-header>
+      <ion-row>
+        <ion-col size="12" size-sm="6">
+          <ion-card class="ion-no-padding">
+            <ion-card-header>
+              <ion-card-title>Initial</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-no-padding">
+              <ion-list formArrayName="initial" class="ion-no-padding">
+                <ion-item 
+                  *ngFor="let setting of newRoastForm?.get('initial')?.value; let i = index" 
+                  [formGroupName]="i"
+                  lines="full">
+                  <ion-label>{{ initialProps[i] }}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+            
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-sm="6">
+          <ion-row class="ion-align-items-stretch">
+            <ion-col size="12" class="ion-no-padding">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Peak</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-no-padding">
+                  <ion-list formArrayName="peak" class="ion-no-padding">
+                    <ion-item 
+                      *ngFor="let setting of newRoastForm?.get('peak')?.value; let i = index" 
+                      [formGroupName]="i"
+                      lines="full">
+                      <ion-label>{{ peakProps[i] }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+    
+            <ion-col size="12" class="ion-no-padding">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Final</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-no-padding">
+                  <ion-list formArrayName="final" class="ion-no-padding">
+                    <ion-item 
+                      *ngFor="let setting of newRoastForm?.get('final')?.value; let i = index" 
+                      [formGroupName]="i"
+                      lines="full">
+                      <ion-label>{{ finalProps[i] }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row> -->
+    </ion-list>
+  </form>
+  
+</ion-content>

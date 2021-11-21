@@ -1,0 +1,60 @@
+<ion-list>
+  <ion-item>
+    <ion-select [(ngModel)]="selectedPercent" (ionChange)="updateDarkMilk($event)">
+      <ion-select-option 
+        *ngFor="let percent of percents; let i = index" 
+        [value]="percent">
+        {{ percent }}%
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item 
+    *ngIf="selectedPercent < 85" 
+    [disabled]="selectedPercent === 50" 
+    [color]="darkMilk ? 'primary' : ''"
+    (ionChange)="updateVegan($event)">
+    <ion-label>Dark Milk</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="darkMilk" slot="end"></ion-toggle>
+  </ion-item>
+
+  <ion-item *ngIf="selectedPercent === 85" [color]="keto ? 'primary' : ''">
+    <ion-label>Keto</ion-label>
+    <ion-toggle [(ngModel)]="keto" slot="end"></ion-toggle>
+  </ion-item>
+
+  <ion-item [disabled]="selectedPercent > 70" [color]="vegan ? 'primary' : ''">
+    <ion-label>Vegan</ion-label>
+    <ion-toggle color="primary" [(ngModel)]="vegan" slot="end"></ion-toggle>
+  </ion-item>
+
+  <ion-item-divider color="medium">
+    <ion-label>Ingredients</ion-label>
+  </ion-item-divider>
+  <ion-item-group>
+    <ion-item>
+      <ion-label>Nibs</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="selectedPercent < 100">
+      <ion-label>{{ keto ? 'Coconut Creamer' : 'Sugar' }}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="selectedPercent < 85">
+      <ion-label>Cocoa butter</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="(selectedPercent === 70 && darkMilk) || selectedPercent < 70">
+      <ion-label *ngIf="selectedPercent === 70">Goat Milk Powder</ion-label>
+      <ion-label *ngIf="selectedPercent === 50 && !vegan">Whole Milk Powder</ion-label>
+      <ion-label *ngIf="selectedPercent === 50 && vegan">Coconut Creamer</ion-label>
+    </ion-item>
+  </ion-item-group>
+  <ion-item-divider>
+    <ion-label>Batch Total</ion-label>
+  </ion-item-divider>
+  <ion-item>
+    
+  </ion-item>
+</ion-list>

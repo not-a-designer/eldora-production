@@ -1,0 +1,31 @@
+ion-header {
+    background: var(--ion-color-primary);
+}
+ion-toolbar.segment-toolbar {
+    --background: var(--ion-color-warning);
+}
+.ios ion-segment {
+    ion-segment-button {
+        --color: var(--ion-color-warning) !important;
+        --background: var(ion-color-medium);
+        --background-checked: var(--ion-color-primary) !important;
+        --color-checked: var(--ion-color-primary) !important;
+        --indicator-color: var(--ion-color-warning);
+        --indicator-box-shadow: inset 20px var(ion-color-danger);
+        
+        
+    }
+    
+    --background: var(--ion-color-primary) !important;
+}
+
+ion-segment:not(.ios) {
+    ion-segment-button {
+        --indicator-color: var(--ion-color-primary);
+        --color-hover: var(--ion-color-light) !important;
+        --color: var(--ion-color-medium);
+        --color-checked: var(--ion-color-primary);
+        --indicator-height: 4px;
+    }
+}
+
